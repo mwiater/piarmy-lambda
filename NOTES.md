@@ -2,7 +2,9 @@
 In progress. See the https://github.com/piarmy/piarmy-scripts swarm directory for swarm deployment options.
 
 # Build
-docker build -t mattwiater/piarmy-lambda . && \
+clear && \
+  cd /home/pi/images/piarmy-lambda && \
+  docker build -t mattwiater/piarmy-lambda . && \
   docker push mattwiater/piarmy-lambda
 
 # Interactive

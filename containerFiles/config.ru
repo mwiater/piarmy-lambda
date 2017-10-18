@@ -11,8 +11,6 @@ class MyApp < Sinatra::Base
     # Calculate Pi:
     # Pursposefully not using the Brent-Salamin algorithm, as a slower method is preferred here.
 
-    puts "Starting calculatePi()...".green
-
     num  = 4.0
     pi   = 0
     plus = true
@@ -29,16 +27,12 @@ class MyApp < Sinatra::Base
       den = den + 2
     end
 
-    puts "Finished calculatePi()...".green
-    puts ""
-
     pi
   end
 
   get '/' do
     content_type :json
 
-    puts "Handling request: /".green
     beginTask = Time.now.to_f
     hostname  = `hostname`.gsub("\n","")
     timestamp = Time.now.to_i

@@ -24,4 +24,4 @@ RUN cd /home/docker/www && \
 
 EXPOSE 8002
 
-CMD ["bundle", "exec", "puma", "config.ru", "./config/puma.rb"]
+CMD ["sudo", "bundle", "exec", "puma", "config.ru", "./config/puma.rb"]

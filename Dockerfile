@@ -22,6 +22,6 @@ RUN cd /home/docker/www && \
   sudo gem install bundler && \
   bundle install
 
-EXPOSE 80
+EXPOSE 8002
 
-CMD ["sudo", "thin", "start", "-p", "80", "-R", "config.ru"]
+CMD ["bundle", "exec", "puma", "config.ru", "./config/puma.rb"]

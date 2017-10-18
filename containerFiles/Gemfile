@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 ruby '2.3.5'
 
-gem 'thin', '1.7.0'
+#gem 'thin', '1.7.0'
+gem 'puma'
+gem 'sinatra'
 gem 'rack-app', '6.7.1'
 gem 'json', '2.0.2'
 gem 'awesome_print'

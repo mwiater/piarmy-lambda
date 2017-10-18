@@ -1,47 +1,55 @@
+require 'sinatra'
+configure { set :server, :puma }
+
 require 'json'
-require 'rack/app'
 require 'awesome_print'
 
-class MyApp < Rack::App
+class MyApp < Sinatra::Base
 
   def calculatePi()
     #
     # Calculate Pi:
     # Pursposefully not using the Brent-Salamin algorithm, as a slower method is preferred here.
-    num = 4.0
-    pi = 0
+
+    puts "Starting calculatePi()...".green
+
+    num  = 4.0
+    pi   = 0
     plus = true
 
     den = 1
     while den < 2500000
       if plus
-        pi = pi + num/den
+        pi   = pi + num/den
         plus = false
       else
-        pi = pi - num/den
+        pi   = pi - num/den
         plus = true
       end
       den = den + 2
     end
 
+    puts "Finished calculatePi()...".green
+    puts ""
+
     pi
   end
 
-  headers 'Access-Control-Allow-Origin' => '*', 'Content-Type' => 'application/json'
-
   get '/' do
+    content_type :json
+
+    puts "Handling request: /".green
     beginTask = Time.now.to_f
     hostname  = `hostname`.gsub("\n","")
     timestamp = Time.now.to_i
-    result    = { hostname: hostname, result: calculatePi() }
+    
+    response  = { hostname: hostname, result: calculatePi() }
     endTask   = Time.now.to_f
+    response["jobDuration"] = endTask - beginTask
 
-    result["jobDuration"] = endTask - beginTask
-
-    result
+    response.to_json
   end
 
 end
 
-# for more check out how-to
-run MyApp
+map('/')       { run MyApp  }
